@@ -1,9 +1,14 @@
 package main
 
 import (
-   "net/http"
+	"log"
+	"net/http"
+	"os"
     "fmt"
     "strconv"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/heroku/x/hmetrics/onload"
 )
 
 func indexHandle(w http.ResponseWriter, r *http.Request) {
@@ -24,6 +29,22 @@ func indexHandle(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    http.HandleFunc( "/" , indexHandle)
-    http.ListenAndServe( ":80" , nil)
+	
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.LoadHTMLGlob("templates/*.tmpl.html")
+	router.Static("/static", "static")
+
+	router.GET("/", func(c *gin.Context) {
+        // c.HTML(http.StatusOK, "index.tmpl.html", nil)
+        indexHandle
+	})
+
+	router.Run(":" + port)
 }
