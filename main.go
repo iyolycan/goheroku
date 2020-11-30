@@ -43,8 +43,21 @@ func main() {
 
 	router.GET("/", func(c *gin.Context) {
         // c.HTML(http.StatusOK, indexHandle, nil)
-        c.Data(http.StatusOK, "text/html; charset=utf-8", indexHandle)
+        // c.Data(http.StatusOK, "text/html; charset=utf-8", indexHandle)
         // http.HandleFunc( "/" , indexHandle)
+        d := "<html><table border=1>" ;
+
+        for y:=0; y<10; y++{
+            d += "<tr>"
+            for x:=0; x<10; x++{
+                d += "<td>" + strconv.Itoa(y) + "x" + strconv.Itoa(x) + "=" + strconv.Itoa(x*y ) + "</td>"
+            }
+            d += "</tr>"
+        }
+
+        d += "</table></html>"
+
+        fmt.Fprint(w, d)
 	})
 
 	router.Run(":" + port)
