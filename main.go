@@ -43,7 +43,7 @@ func main() {
 
 	router.GET("/", func(c *gin.Context) {
         // c.HTML(http.StatusOK, "index.tmpl.html", nil)
-        indexHandle
+        http.HandleFunc( "/" , indexHandle)
 	})
 
 	router.Run(":" + port)
