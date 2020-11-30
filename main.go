@@ -42,7 +42,8 @@ func main() {
 	router.Static("/static", "static")
 
 	router.GET("/", func(c *gin.Context) {
-        c.HTML(http.StatusOK, indexHandle, nil)
+        // c.HTML(http.StatusOK, indexHandle, nil)
+        c.Data(http.StatusOK, "text/html; charset=utf-8", indexHandle)
         // http.HandleFunc( "/" , indexHandle)
 	})
 
