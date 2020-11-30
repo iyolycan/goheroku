@@ -42,8 +42,8 @@ func main() {
 	router.Static("/static", "static")
 
 	router.GET("/", func(c *gin.Context) {
-        // c.HTML(http.StatusOK, "index.tmpl.html", nil)
-        http.HandleFunc( "/" , indexHandle)
+        c.HTML(http.StatusOK, indexHandle, nil)
+        // http.HandleFunc( "/" , indexHandle)
 	})
 
 	router.Run(":" + port)
