@@ -42,9 +42,7 @@ func main() {
 	router.Static("/static", "static")
 
 	router.GET("/", func(c *gin.Context) {
-        // c.HTML(http.StatusOK, indexHandle, nil)
-        // c.Data(http.StatusOK, "text/html; charset=utf-8", indexHandle)
-        http.HandleFunc( "/" , indexHandle)
+        c.HTML(http.StatusOK, indexHandle, nil)
 	})
 
 	router.Run(":" + port)
